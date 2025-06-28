@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang HIMA SIA - UTDI</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0d6efd" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      min-height: 100vh;
+      background-image: url('img/backweb.jpeg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+    .card-custom {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    .profile-img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay d-flex flex-column">
+
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">HIMA SIA - UTDI</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">BERANDA</a></li>
+            <li class="nav-item"><a class="nav-link" href="detail.html">STRUKTUR ORGANISASI</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Struktur Organisasi -->
+    <section class="container py-5 text-white">
+      <h2 class="text-center fw-bold mb-5 fs-2">Struktur Organisasi</h2>
+      <div class="row g-4">
+
+        <!-- Ketua -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card card-custom text-dark text-center p-3 h-100">
+            <img src="img/ketua.jpeg" alt="Ketua HIMA" class="rounded-circle mx-auto mb-3 profile-img" />
+            <h5 class="fw-bold">Ketua</h5>
+            <p class="text-justify">Muhammad Maulana F. Saya siap bertanggung jawab dalam memimpin organisasi dan menyusun strategi kerja.</p>
+          </div>
+        </div>
+
+        <!-- Wakil Ketua -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card card-custom text-dark text-center p-3 h-100">
+            <img src="img/wakil.jpeg" alt="Wakil Ketua" class="rounded-circle mx-auto mb-3 profile-img" />
+            <h5 class="fw-bold">Wakil Ketua</h5>
+            <p class="text-justify">Arfandi Ruhanda S. Saya siap mendampingi ketua dan mengkoordinasikan program kerja antar divisi.</p>
+          </div>
+        </div>
+
+        <!-- Divisi Administrasi -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card card-custom text-dark text-center p-3 h-100">
+            <img src="img/administrasi.jpeg" alt="Administrasi" class="rounded-circle mx-auto mb-3 profile-img" />
+            <h5 class="fw-bold">Divisi Administrasi</h5>
+            <p class="text-justify">Kami Dita Putri Utami, Faza Shafarania dan Erlinda Wati N. Sebagai Ahli strategi keuangan dan pengerak ekonomi kreatif organisasi.</p>
+          </div>
+        </div>
+
+        <!-- Divisi Akademik -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card card-custom text-dark text-center p-3 h-100">
+            <img src="img/akademik.jpeg" alt="Akademik" class="rounded-circle mx-auto mb-3 profile-img" />
+            <h5 class="fw-bold">Divisi Akademik</h5>
+            <p class="text-justify">Kami Catur S, Sofiyah H, Pramudya Ahzani I.K, dan Joharman Lombu. Siap menghadirkan program unggulan yang mendukung pengembangan akademik dan softskill kamu.</p>
+          </div>
+        </div>
+
+        <!-- Divisi Networking -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card card-custom text-dark text-center p-3 h-100">
+            <img src="img/networking.jpeg" alt="Networking" class="rounded-circle mx-auto mb-3 profile-img" />
+            <h5 class="fw-bold">Divisi Networking</h5>
+            <p class="text-justify">Kami Muchlis Apri A.N, Frisca Putri, dan Nendy Angger. Siap menghubungkan HIMA SIA dengan seluruh mahasiswa dan pihak eksternal dari organisasi untuk menambah hubungan dan relasi.</p>
+          </div>
+        </div>
+
+        <!-- DPO -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card card-custom text-dark text-center p-3 h-100">
+            <img src="img/dpo.jpeg" alt="dpo" class="rounded-circle mx-auto mb-3 profile-img" />
+            <h5 class="fw-bold">Dewan Pengawas Organisasi</h5>
+            <p class="text-justify">Kami Vera Rossyana, Amelia Andra dan Rista Erlina. Siap mengawasi berjalannya organisasi HIMA SIA pada periode 2024/2025.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white text-center py-3">
+      &copy; 2025 HIMA SIA - Universitas Teknologi Digital Indonesia
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+
+  <!-- PWA: Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker terdaftar di:', reg.scope))
+        .catch(err => console.error('Registrasi Service Worker gagal:', err));
+    }
+  </script>
+</body>
+</html>
