@@ -1,32 +1,30 @@
 const CACHE_NAME = 'hima-sia-cache-v1';
 const urlsToCache = [
-  'index.html',
-  'detail.html',
-  'css/bootstrap.min.css',
-  'js/bootstrap.bundle.min.js',
-  'img/backweb.jpeg',
-  'img/logo_hima_sia.png',
-  'img/ketua.jpeg',
-  'img/wakil.jpeg',
-  'img/administrasi.jpeg',
-  'img/akademik.jpeg',
-  'img/networking.jpeg',
-  'img/dpo.jpeg',
-  'manifest.json',
-  'img/icon-192.png',
-  'img/icon-512.png'
+  '/websia/index.html',
+  '/websia/detail.html',
+  '/websia/css/bootstrap.min.css',
+  '/websia/js/bootstrap.bundle.min.js',
+  '/websia/manifest.json',
+  '/websia/img/backweb.jpeg',
+  '/websia/img/logo_hima_sia.png',
+  '/websia/img/ketua.jpeg',
+  '/websia/img/wakil.jpeg',
+  '/websia/img/administrasi.jpeg',
+  '/websia/img/akademik.jpeg',
+  '/websia/img/networking.jpeg',
+  '/websia/img/dpo.jpeg',
+  '/websia/img/icon-192.png',
+  '/websia/img/icon-512.png'
 ];
 
-// Install
+// Install event
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
-// Activate
+// Activate event
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -39,7 +37,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch
+// Fetch event
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response =>
