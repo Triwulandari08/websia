@@ -1,7 +1,7 @@
 {
   "name": "HIMA SIA - UTDI",
   "short_name": "HIMA SIA",
-  "start_url": "/index.html",
+  "start_url": "/hima_sia_pwa/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0d6efd",
@@ -15,8 +15,7 @@
       "src": "img/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose" : "maskable"
-
+      "purpose": "maskable"
     }
   ]
 }
