@@ -6,11 +6,14 @@
   <title>HIMA SIA - UTDI</title>
 
   <!-- PWA -->
+    <!-- Manifest ini adalah file konfigurasi PWA (Progressive Web App) yang berisi metadata aplikasi seperti nama, ikon, dan tema warna.
+     Digunakan agar website bisa dipasang (installable) di layar utama pengguna seperti aplikasi native. -->
   <link rel="manifest" href="/websia/manifest.json" />
   <meta name="theme-color" content="#0d6efd" />
   <link rel="icon" href="/websia/img/icon-192.png" type="image/png" />
 
   <!-- CSS -->
+  <!-- Mengimpor Bootstrap CSS untuk styling responsif untuk mengatur tampilan web -->
   <link href="/websia/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
@@ -48,7 +51,7 @@
       </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- Bagian Tampilan tentang judul pengantar webisite -->
     <section class="text-center py-5 px-3">
       <img src="/websia/img/logo_hima_sia.png" alt="Logo HIMA" class="mx-auto d-block mb-4" style="width: 160px;" />
       <h2 class="h3 fw-semibold">Selamat Datang</h2>
@@ -56,7 +59,7 @@
       <h3 class="fw-medium text-light mt-2">Universitas Teknologi Digital Indonesia</h3>
     </section>
 
-    <!-- Tentang -->
+    <!-- Bagian Tentang yang memuat informasi mengenai HIMA SIA yang berada dalam kumpulan card -->
     <section class="container py-4 flex-grow-1">
       <div class="row g-4">
         <div class="col-md-4">
@@ -91,7 +94,7 @@
       </div>
     </section>
 
-    <!-- Kesan & Pesan -->
+    <!-- Kolom Kesan & Pesan yang menggunakan fungsi index db agar user dapat menginput sesuatu didalamnya -->
     <section class="container py-5">
       <h3 class="text-white text-center mb-4">💬 Kesan & Pesan untuk HIMA SIA</h3>
       <form id="form-pesan" class="mb-4">
@@ -121,21 +124,23 @@
   <script src="/websia/js/bootstrap.bundle.min.js"></script>
 
   <!-- IndexedDB -->
+  <!-- IndexedDB digunakan sebagai penyimpanan lokal (local database) untuk menyimpan pesan pengguna secara offline -->
   <script>
-    const dbPesan = "HIMA_PESAN_DB";
-    const storePesan = "pesan";
+    const dbPesan = "HIMA_PESAN_DB"; //Nama Database 
+    const storePesan = "pesan"; //Nama objcet store (tabel data)
 
     function bukaDBPesan() {
       return new Promise((resolve, reject) => {
-        const request = indexedDB.open(dbPesan, 1);
+        const request = indexedDB.open(dbPesan, 1); // Membuka atau membuat database versi 1
         request.onupgradeneeded = event => {
           const db = event.target.result;
           if (!db.objectStoreNames.contains(storePesan)) {
-            db.createObjectStore(storePesan, { keyPath: "id", autoIncrement: true });
+            db.createObjectStore(storePesan, { keyPath: "id", autoIncrement: true }); 
+            // Membuat store "pesan" dengan primary key otomatis
           }
         };
-        request.onsuccess = e => resolve(e.target.result);
-        request.onerror = e => reject(e.target.error);
+        request.onsuccess = e => resolve(e.target.result); //Bila Koneksi ke database berhasil
+        request.onerror = e => reject(e.target.error); // Bila koneksi ke database gagal (gagal membuka database)
       });
     }
 
@@ -143,25 +148,25 @@
       const db = await bukaDBPesan();
       const tx = db.transaction(storePesan, "readwrite");
       const store = tx.objectStore(storePesan);
-      store.put(data);
+      store.put(data); // Menyimpan data pesan ke database
       tx.oncomplete = tampilkanSemuaPesan;
-      document.getElementById("form-pesan").reset();
+      document.getElementById("form-pesan").reset(); //Reset form setelah pengiriman
     }
 
     async function tampilkanSemuaPesan() {
       const db = await bukaDBPesan();
       const tx = db.transaction(storePesan, "readonly");
       const store = tx.objectStore(storePesan);
-      const request = store.getAll();
+      const request = store.getAll(); //Mengambil semua pesan yang disimpan
 
       request.onsuccess = () => {
         const container = document.getElementById("daftar-pesan");
         container.innerHTML = "";
 
         if (request.result.length === 0) {
-          container.innerHTML = "<p class='text-light'>Belum ada pesan masuk.</p>";
+          container.innerHTML = "<p class='text-light'>Belum ada pesan masuk.</p>"; //Bila belum ada yang mengirim pesan/pesan masih kosong
         } else {
-          request.result.reverse().forEach(item => {
+          request.result.reverse().forEach(item => { //Menampilkan setiap pesan dalam card
             const card = document.createElement("div");
             card.className = "card card-custom text-dark p-3 mb-3";
             card.innerHTML = `
@@ -179,7 +184,7 @@
       const db = await bukaDBPesan();
       const tx = db.transaction(storePesan, "readwrite");
       const store = tx.objectStore(storePesan);
-      store.delete(id);
+      store.delete(id); //Menghapus 1 pesan berdasarkan ID
       tx.oncomplete = tampilkanSemuaPesan;
     }
 
@@ -187,7 +192,7 @@
       const db = await bukaDBPesan();
       const tx = db.transaction(storePesan, "readwrite");
       const store = tx.objectStore(storePesan);
-      store.clear();
+      store.clear(); //Menghapus semua pesan
       tx.oncomplete = tampilkanSemuaPesan;
     }
 
@@ -199,6 +204,7 @@
         year: 'numeric', month: 'long', day: 'numeric'
       });
       if (nama && pesan) simpanPesan({ nama, pesan, tanggal });
+      //Menyimpan pasean yang dikirim oleh user ke index DB yang sudah dibuat tadi
     });
 
     document.getElementById("hapus-semua").addEventListener("click", () => {
@@ -206,11 +212,18 @@
     });
 
     document.addEventListener("DOMContentLoaded", tampilkanSemuaPesan);
+    //Saat halaman dimuat, tampilkan semua pesan yang sudah tersimpan
   </script>
 
   <!-- Service Worker -->
+  <!-- Service Worker adalah inti dari PWA. Ia bekerja di background untuk: -->
+    <!-- 1. caching file agar bisa offline -->
+    <!-- 2. intercept request dengan Fetch API -->
+      <!-- 3. menyediakan respon dari cache saat offline  -->
+            <!-- 4. Saat user membuka kembali web ini, cache dari SW digunakan jika koneksi tidak tersedia  -->
   <script>
     if ('serviceWorker' in navigator) {
+      //Mengecek apakah browser mendukung Service Worker
       navigator.serviceWorker.register('/websia/service-worker.js')
         .then(reg => console.log('Service Worker registered:', reg.scope))
         .catch(err => console.error('SW failed:', err));
