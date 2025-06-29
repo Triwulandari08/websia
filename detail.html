@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tentang HIMA SIA - UTDI</title>
+  <!-- File manifest.json adalah file konfigurasi PWA yang mendeskripsikan nama app, ikon, tema warna, start_url, dan lainnya. -->
+  <!-- File ini membuat halaman bisa dipasang (installable) sebagai aplikasi di perangkat. -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0d6efd" />
-  <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Menggunakan Bootstrap untuk styling dan komponen interaktif (seperti collapse/toggle navbar). -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" /> 
   <style>
     body {
       min-height: 100vh;
@@ -49,6 +52,8 @@
     </nav>
 
     <!-- Struktur Organisasi -->
+    <!-- Bagian ini hanya menampilkan struktur organisasi HIMA SIA.
+         Tidak terkait langsung dengan PWA, tapi kontennya akan dicache oleh Service Worker jika dikonfigurasi. -->
     <section class="container py-5 text-white">
       <h2 class="text-center fw-bold mb-5 fs-2">Struktur Organisasi</h2>
       <div class="row g-4">
@@ -120,11 +125,14 @@
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <!-- PWA: Service Worker -->
+     <!--  Bekerja di background untuk meng-cache file HTML, CSS, JS, dan gambar
+         - Menggunakan Fetch API untuk mengatur request dan memberikan response dari cache jika offline
+         - Membuat halaman ini dapat diakses meskipun tidak ada koneksi internet -->
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker terdaftar di:', reg.scope))
-        .catch(err => console.error('Registrasi Service Worker gagal:', err));
+    if ('serviceWorker' in navigator) { // Mengecek apakah browser mendukung Service Worker
+      navigator.serviceWorker.register('service-worker.js')  // Mendaftarkan file service-worker.js untuk halaman ini
+        .then(reg => console.log('Service Worker terdaftar di:', reg.scope)) // Jika berhasil, akan muncul log area cakupan service worker
+        .catch(err => console.error('Registrasi Service Worker gagal:', err)); // Jika gagal (misalnya file tidak ditemukan), log error
     }
   </script>
 </body>
